@@ -19,6 +19,7 @@ function ContentView({ homeStore }: WithHomeStore) {
 
     useEffect(() => {
         loadEntityData()
+        // eslint-disable-next-line
     }, [])
 
 

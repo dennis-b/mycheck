@@ -25,7 +25,7 @@ export class HomeStore {
 
     @action
     update = ({ userId, invitationStatus }) => {
-        const user = this.data.find(user => user.id == userId)
+        const user = this.data.find(user => user.id === userId)
         if (user) {
             user.invitationStatus = invitationStatus;
         }

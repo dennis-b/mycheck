@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
 import { Button, Card, CardActions, CardContent } from "@material-ui/core";
-import { inject } from "mobx-react";
 
 import { User } from "../../../../Api";
 import { StGrid, StText } from "../../../../Components";
 import { AppTheme } from "../../../../assets/theme";
 import { UserDialog } from "./UserDialog";
-import { homeStoreSelector, WithHomeStore } from "../../HomeStore";
 
-interface Props extends WithHomeStore {
+interface Props {
     user: User
 }
 
-const UserItemView: any = ({ user, homeStore }: Props) => {
+export const UserItem: any = ({ user }: Props) => {
 
-    const { name, email, invitationStatus, id } = user;
+    const { name, email, invitationStatus } = user;
     const [open, setOpen] = useState<boolean>(false)
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>()
+    const [status, setStatus] = useState<boolean>(invitationStatus)
 
     const onUserClick = (event) => {
         setAnchorEl(event.currentTarget)
@@ -28,11 +27,13 @@ const UserItemView: any = ({ user, homeStore }: Props) => {
     }
 
     const onDecline = () => {
-        homeStore.update({ userId: id, invitationStatus: false })
+        // homeStore.update({ userId: id, invitationStatus: false })
+        setStatus(false)
         handleOnRequestClose()
     }
     const onAccept = () => {
-        homeStore.update({ userId: id, invitationStatus: true })
+        // homeStore.update({ userId: id, invitationStatus: true })
+        setStatus(true)
         handleOnRequestClose()
     }
 
@@ -48,8 +49,8 @@ const UserItemView: any = ({ user, homeStore }: Props) => {
                             {email}
                         </StText>
 
-                        <StText textcolor={invitationStatus ? AppTheme.colors.darkBlue : AppTheme.colors.red} mt={1}>
-                            {invitationStatus ? 'Accepted' : 'Declined'}
+                        <StText textcolor={status ? AppTheme.colors.darkBlue : AppTheme.colors.red} mt={1}>
+                            {status ? 'Accepted' : 'Declined'}
                         </StText>
 
                     </CardContent>
@@ -72,5 +73,3 @@ const UserItemView: any = ({ user, homeStore }: Props) => {
         </>
     );
 };
-
-export const UserItem = inject(homeStoreSelector)(UserItemView)
