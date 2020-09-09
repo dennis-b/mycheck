@@ -1,5 +1,5 @@
 # Description
-Application for displaying managing user invitations.
+Application for displaying and managing user invitations.
 
 # Demo
 [https://epic-kepler-59f46b.netlify.app/](https://epic-kepler-59f46b.netlify.app)
